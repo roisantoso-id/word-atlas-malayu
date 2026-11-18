@@ -1,6 +1,6 @@
 # JomBelajar · 马来语高频词
 
-线上地址：https://www.bahasa.cn/words/
+线上地址：https://words.bahasa.cn/
 
 给中文母语者的马来语背单词网页：按词频排好的 2,957 个马来语常用词，每个词有马来语真人发音、中文释义和例句，用 FSRS 间隔重复安排复习。不用注册，进度存在自己的设备上。
 
@@ -23,7 +23,7 @@ npm test
 npm run build
 ```
 
-部署：`bash scripts/deploy.sh`（构建时 base 为 `/words/`，传到新加坡服务器官网目录下的 `words/`）。
+部署：`bash scripts/deploy.sh`（传到新加坡服务器 `/opt/jombelajar/website/words/`，由 words.bahasa.cn 站点托管）。
 
 重新生成词库：`python3 scripts/malay/build_malay_atlas.py`（默认读 `../cuc-bahasa-malay/content/vocab5000/words.json`）。
 

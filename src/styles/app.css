@@ -441,13 +441,17 @@ code {
   flex-wrap: wrap;
   gap: 8px;
 }
+/* House rule: no sideways scrolling anywhere. Filter chips wrap onto more rows. */
 .chips-scroll {
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  scrollbar-width: none;
-  margin: 0 calc(-1 * var(--gutter));
-  padding: 2px var(--gutter);
-  mask-image: linear-gradient(90deg, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent);
+  flex-wrap: wrap;
+  row-gap: 8px;
+}
+@media (max-width: 559px) {
+  .chips-scroll .chip-btn {
+    height: 30px;
+    padding: 0 11px;
+    font-size: 13px;
+  }
 }
 .chips-scroll::-webkit-scrollbar {
   display: none;
@@ -513,6 +517,13 @@ code {
   font-weight: 600;
   box-shadow: var(--shadow-sm);
 }
+@media (max-width: 559px) {
+  /* five status tabs must fit a 320px phone without sideways scrolling */
+  .segmented button {
+    padding: 0 9px;
+    font-size: 13px;
+  }
+}
 .segmented-icons button {
   width: 36px;
   padding: 0;
@@ -525,6 +536,12 @@ code {
 }
 .segmented-wide button {
   flex: 1;
+  min-width: 0;
+}
+@media (max-width: 559px) {
+  .segmented-wide button {
+    padding: 0 4px;
+  }
 }
 
 /* ---------- layout ---------- */
@@ -1883,18 +1900,14 @@ code {
   margin-bottom: 14px;
   padding: 0 2px;
 }
+/* Malay edition: word groups have no artwork, so a wrapping grid of short tiles (no sideways scroll) */
 .topic-tiles {
   list-style: none;
-  margin: 0 calc(-1 * var(--gutter));
-  padding: 4px var(--gutter) 16px;
+  margin: 0;
+  padding: 4px 0 16px;
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 168px;
-  gap: 14px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding: 0 var(--gutter);
-  scrollbar-width: none;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
 }
 .topic-tiles::-webkit-scrollbar {
   display: none;
@@ -1955,12 +1968,28 @@ code {
   margin-top: 2px;
   font-variant-numeric: tabular-nums;
 }
-@media (min-width: 1200px) {
-  .topic-tiles {
-    margin: 0;
-    padding: 4px 2px 16px;
-    scroll-padding: 0;
-  }
+/* no artwork: plain compact cards instead of picture tiles */
+.topic-tiles button {
+  aspect-ratio: auto;
+  min-height: 76px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: none;
+}
+.topic-tiles button::after {
+  display: none;
+}
+.topic-tiles span {
+  position: static;
+  padding: 14px 16px;
+  color: var(--ink);
+}
+.topic-tiles b {
+  font-size: 19px;
+}
+.topic-tiles small {
+  color: var(--ink-3);
+  opacity: 1;
 }
 
 /* ---------- atlas ---------- */

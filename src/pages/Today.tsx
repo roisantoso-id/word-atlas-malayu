@@ -330,7 +330,6 @@ function Topics() {
         {atlas.topics.map(([key, name], i) => (
           <li key={key}>
             <button onClick={() => go({ page: "atlas", topic: key })}>
-              <img src={`${BRAND}/topic-${key}.webp`} alt="" loading="lazy" onError={(e) => (e.currentTarget.style.visibility = "hidden")} />
               <span>
                 <b>{name}</b>
                 <small>{counts[i]} 个词</small>
