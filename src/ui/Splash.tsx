@@ -75,7 +75,8 @@ function targets(w: number, h: number, count: number) {
   g.textAlign = "center";
   g.textBaseline = "middle";
   g.fillText("Jom", cx, cy + R + zh * 0.78);
-  const en = Math.max(18, zh * 0.24);
+  // 13 letters with wide tracking: cap so it fits the window width
+  const en = Math.min(Math.max(18, zh * 0.24), (w * 0.9) / 13.5);
   g.font = `700 ${en}px "Fraunces Variable", Georgia, serif`;
   g.letterSpacing = `${en * 0.34}px`;
   g.fillText("BAHASA MELAYU", cx, cy + R + zh * 1.52);

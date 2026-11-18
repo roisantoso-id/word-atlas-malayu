@@ -592,8 +592,27 @@ code {
   gap: 8px;
 }
 .logo-text b {
-  font: 700 21px/1 "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC", serif;
-  letter-spacing: 0.06em;
+  /* Latin wordmark (JomBelajar): serif, no CJK letter-spacing */
+  font: 700 21px/1 var(--serif);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.topbar-tools {
+  min-width: 0;
+}
+@media (max-width: 759px) {
+  .topbar .logo-text small {
+    display: none;
+  }
+  .topbar .logo-text b {
+    font-size: 18px;
+  }
+}
+@media (max-width: 359px) {
+  /* very narrow: keep the compass mark, drop the wordmark so the tools fit */
+  .topbar .logo-text {
+    display: none;
+  }
 }
 .logo-text small {
   font: italic 500 14px/1 var(--serif);
