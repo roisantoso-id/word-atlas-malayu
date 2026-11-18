@@ -241,7 +241,7 @@ function WordOfDay() {
       <Illustration src={atlas.img(pick)} word={pick.word} topic={pick.topic} className="wotd-art" />
       <div className="wotd-body">
         <h3 className="eyebrow">今日一词</h3>
-        <p className="wotd-word" lang="en">
+        <p className="wotd-word" lang="ms">
           {pick.word}
         </p>
         {entry && (
@@ -251,7 +251,7 @@ function WordOfDay() {
         )}
         <p className="wotd-zh">{pick.zh}</p>
         {entry?.ex[0] && (
-          <p className="wotd-ex" lang="en">
+          <p className="wotd-ex" lang="ms">
             <Highlight text={entry.ex[0].en} word={entry.w} />
           </p>
         )}
@@ -321,7 +321,7 @@ function Topics() {
   return (
     <section className="topics-panel">
       <div className="panel-head">
-        <h3 className="eyebrow">按雅思话题探索</h3>
+        <h3 className="eyebrow">按词性探索</h3>
         <button className="link" onClick={() => go({ page: "atlas" })}>
           打开图鉴
         </button>

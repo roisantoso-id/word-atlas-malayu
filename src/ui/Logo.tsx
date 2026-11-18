@@ -18,8 +18,8 @@ export function Logo({ compact = false }: { compact?: boolean }) {
     <span className="logo">
       <Mark />
       <span className="logo-text">
-        <b>词光</b>
-        {!compact && <small>Word Atlas</small>}
+        <b>JomBelajar</b>
+        {!compact && <small>马来语高频词</small>}
       </span>
     </span>
   );

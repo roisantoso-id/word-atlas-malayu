@@ -2,21 +2,23 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { gap, normalize, splitHighlight, splitPair } from "./text";
 
-test("highlights the headword and common inflections", () => {
-  assert.deepEqual(splitHighlight("Training with a friend motivates me.", "motivate")?.[1], "motivates");
-  assert.deepEqual(splitHighlight("She studied hard.", "study")?.[1], "studied");
-  assert.deepEqual(splitHighlight("We got a day off today.", "day off")?.[1], "day off");
-  assert.equal(splitHighlight("Nothing here.", "salt"), null);
+test("highlights the Malay headword with affixes", () => {
+  assert.equal(splitHighlight("Dia sedang menulis surat.", "tulis")?.[1], "menulis");
+  assert.equal(splitHighlight("Kami membeli buah di pasar.", "beli")?.[1], "membeli");
+  assert.equal(splitHighlight("Saya mengira dia sudah pulang.", "kira")?.[1], "mengira");
+  assert.equal(splitHighlight("Rumahnya besar.", "rumah")?.[1], "Rumahnya");
+  assert.equal(splitHighlight("Anak-anak bermain di taman.", "anak")?.[1], "Anak-anak");
+  assert.equal(splitHighlight("Kita jumpa lagi esok.", "ikan"), null);
 });
 
 test("does not match inside longer unrelated words", () => {
-  assert.equal(splitHighlight("The cartoon was funny.", "art"), null);
+  assert.equal(splitHighlight("Dia datang semalam.", "di"), null);
 });
 
 test("gaps the sentence for cloze questions", () => {
-  const g = gap("I refused the extra money as a matter of principle.", "principle");
-  assert.equal(g?.hidden, "principle");
-  assert.equal(g?.after, ".");
+  const g = gap("Ali dan Siti datang bersama.", "dan");
+  assert.equal(g?.hidden, "dan");
+  assert.equal(g?.after, " Siti datang bersama.");
 });
 
 test("normalizes typography from mobile keyboards", () => {

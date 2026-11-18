@@ -4,10 +4,10 @@ import { useAtlas } from "../atlas/context";
 import { store } from "../store/store";
 
 const LEVELS = [
-  ["A2", "基础", "日常词还不太稳"],
-  ["B1", "进阶", "目标 5.5 – 6 分"],
-  ["B2", "中高", "目标 6.5 – 7 分"],
-  ["C1", "高级", "冲刺 7.5 分以上"],
+  ["T1", "零基础", "从最常用的 500 词开始"],
+  ["T2", "会一点", "认识打招呼和数字"],
+  ["T3", "能聊天", "日常对话基本能听懂"],
+  ["T4", "进阶", "想读新闻、看剧"],
 ];
 
 export function Onboarding() {
@@ -20,7 +20,7 @@ export function Onboarding() {
       <div className="onboard-card">
         <img className="onboard-art" src={`${import.meta.env.BASE_URL}brand/hero.webp`} alt="" />
         <div className="onboard-body">
-          <p className="eyebrow">欢迎来到词光</p>
+          <p className="eyebrow">Selamat datang · 欢迎</p>
           <h1 className="display">
             {atlas.count.toLocaleString()} 颗星，
             <br />

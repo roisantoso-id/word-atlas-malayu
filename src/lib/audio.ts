@@ -41,9 +41,12 @@ async function speak(url: string | null | undefined, text: string, accent: "uk" 
   }
   if (!("speechSynthesis" in window)) return "unsupported" as const;
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = accent === "uk" ? "en-GB" : "en-US";
+  // Malay edition: one voice, whatever the accent setting says.
+  void accent;
+  u.lang = "ms-MY";
   u.rate = rate * 0.95;
-  const voices = speechSynthesis.getVoices().filter((v) => v.lang.replace("_", "-") === u.lang);
+  const all = speechSynthesis.getVoices();
+  const voices = all.filter((v) => v.lang.replace("_", "-") === u.lang).concat(all.filter((v) => /^(ms|id)\b/i.test(v.lang)));
   const best = voices.find((v) => /premium|enhanced|natural|google/i.test(v.name)) || voices[0];
   if (best) u.voice = best;
   await new Promise<void>((r) => {

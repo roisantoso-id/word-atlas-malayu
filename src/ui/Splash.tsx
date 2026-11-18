@@ -74,11 +74,12 @@ function targets(w: number, h: number, count: number) {
   g.font = `700 ${zh}px "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC", serif`;
   g.textAlign = "center";
   g.textBaseline = "middle";
-  g.fillText("词光", cx, cy + R + zh * 0.78);
+  g.fillText("Jom", cx, cy + R + zh * 0.78);
   const en = Math.max(18, zh * 0.24);
   g.font = `700 ${en}px "Fraunces Variable", Georgia, serif`;
   g.letterSpacing = `${en * 0.34}px`;
-  g.fillText("WORD ATLAS", cx, cy + R + zh * 1.52);
+  g.fillText("BAHASA MELAYU", cx, cy + R + zh * 1.52);
+  if (!w || !h) return { pts: [], cy: cy + R, wordTop: cy + R + zh * 1.3 }; // hidden or zero-size window
   const data = g.getImageData(0, 0, w, h).data;
   // Take every lit pixel, then a random subset: no visible sampling grid.
   const all: [number, number][] = [];
@@ -98,7 +99,7 @@ export function Splash({ onDone }: { onDone: () => void }) {
   const reduce = typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   useEffect(() => {
-    preloadFiles(["splash-voice.mp3", "splash-door.mp3", "splash-burst.mp3"]);
+    preloadFiles(["splash-door.mp3", "splash-burst.mp3"]);
     const t = window.setTimeout(() => setPhase((p) => (p === "gather" ? "ready" : p)), reduce ? 300 : 2100);
     return () => window.clearTimeout(t);
   }, [reduce]);
@@ -216,7 +217,7 @@ export function Splash({ onDone }: { onDone: () => void }) {
     if (sound && store.get().settings.sfx) {
       void playFile("splash-burst.mp3", 0.55);
       void playFile("splash-door.mp3", 0.6, 0.12);
-      void playFile("splash-voice.mp3", 0.95, 0.35);
+      // The original spoken line is about IELTS; the Malay edition plays effects only.
       // Let the welcome line sit above the music that fades in with the doors.
       duck(true);
       window.setTimeout(() => duck(false), 3200);
@@ -237,19 +238,19 @@ export function Splash({ onDone }: { onDone: () => void }) {
   }); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className={`splash is-${phase} ${reduce ? "is-reduced" : ""}`} onClick={() => open()} role="dialog" aria-label="欢迎打开雅思大门，点击进入">
+    <div className={`splash is-${phase} ${reduce ? "is-reduced" : ""}`} onClick={() => open()} role="dialog" aria-label="Selamat datang，点击进入">
       <div className="door door-l" />
       <div className="door door-r" />
       <div className="splash-light" />
       <canvas ref={canvas} className="splash-canvas" aria-hidden="true" />
       {reduce && (
         <div className="splash-static">
-          <b>词光</b>
+          <b>JomBelajar</b>
           <small>WORD ATLAS</small>
         </div>
       )}
       <div className="splash-copy">
-        <p className="splash-tag">欢迎打开雅思大门</p>
+        <p className="splash-tag">Selamat datang · 一起学马来语</p>
         <p className="splash-hint">
           <span className="splash-key" />
           点击开启 · 按任意键

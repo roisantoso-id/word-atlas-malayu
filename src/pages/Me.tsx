@@ -118,7 +118,7 @@ export function Me({ privateAvailable }: { privateAvailable: boolean }) {
               ))}
             </div>
           </Field>
-          <Field label="从哪个难度开始" hint="跳过已经熟悉的低级别词。">
+          <Field label="从哪一段开始" hint="T1 是最常用的 500 词，往后越来越少见。跳过已经熟悉的。">
             <div className="segmented">
               {atlas.cefr.map((l, i) => (
                 <button key={l} className={settings.startLevel === i ? "is-on" : ""} onClick={() => set({ startLevel: i })}>
@@ -134,16 +134,6 @@ export function Me({ privateAvailable }: { privateAvailable: boolean }) {
                   {Math.round(n * 100)}%
                 </button>
               ))}
-            </div>
-          </Field>
-          <Field label="发音">
-            <div className="segmented">
-              <button className={settings.accent === "uk" ? "is-on" : ""} onClick={() => set({ accent: "uk" })}>
-                英式
-              </button>
-              <button className={settings.accent === "us" ? "is-on" : ""} onClick={() => set({ accent: "us" })}>
-                美式
-              </button>
             </div>
           </Field>
           <Field label="外观">

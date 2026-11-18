@@ -28,7 +28,13 @@ export function Pronounce({ entry, refw }: { entry: Entry; refw: WordRef | Entry
   const items: ["uk" | "us", string, string][] = both
     ? [["uk", "英", entry.uk], ["us", "美", entry.us]]
     : [[accent, accent === "uk" ? "英" : "美", entry.uk || entry.us]];
-  if (!both && items[0][2] === "") return null;
+  // Malay edition: no IPA, one voice. Still offer the play button.
+  if (!both && items[0][2] === "")
+    return (
+      <div className="pron">
+        <Speak url={atlas.audio(refw, accent)} text={entry.w} accent={accent} size="sm" label={<em>发音</em>} />
+      </div>
+    );
   return (
     <div className="pron">
       {(accent === "us" ? [...items].reverse() : items).map(([acc, label, ipa]) => (
@@ -93,10 +99,10 @@ export function EntryView({ entry, mode = "detail", eager = true }: { entry: Ent
           <p className="specimen">
             № {String(ref.order + 1).padStart(4, "0")}
             <i />
-            Word Atlas
+            JomBelajar
           </p>
         )}
-        <h2 className="headword" lang="en">
+        <h2 className="headword" lang="ms">
           {entry.w}
         </h2>
         <Pronounce entry={entry} refw={ref ?? entry} />
@@ -107,7 +113,7 @@ export function EntryView({ entry, mode = "detail", eager = true }: { entry: Ent
               <span className="pos">{s.pos}</span>
               <span className="zh">{s.zh}</span>
               {s.en && (
-                <span className="en" lang="en">
+                <span className="en" lang="ms">
                   {s.en}
                 </span>
               )}
@@ -121,8 +127,8 @@ export function EntryView({ entry, mode = "detail", eager = true }: { entry: Ent
             <ul className="examples">
               {entry.ex.map((x, i) => (
                 <li key={i}>
-                  {entry.ex.length > 1 && <span className={`ex-tag ${i ? "is-ielts" : ""}`}>{i ? "雅思语境" : "日常"}</span>}
-                  <p className="ex-en" lang="en">
+                  {entry.ex.length > 1 && <span className="ex-tag">{`例句 ${i + 1}`}</span>}
+                  <p className="ex-en" lang="ms">
                     <Highlight text={x.en} word={entry.w} />
                     <Speak url={exUrls[i] ?? null} text={x.en} accent={i === 1 && exUrls[1] ? "us" : accent} size="sm" className="ex-speak" />
                   </p>
@@ -141,7 +147,7 @@ export function EntryView({ entry, mode = "detail", eager = true }: { entry: Ent
                 const { en, zh } = splitPair(c);
                 return (
                   <li key={c}>
-                    <span lang="en">{en}</span>
+                    <span lang="ms">{en}</span>
                     {zh && <small>{zh}</small>}
                   </li>
                 );

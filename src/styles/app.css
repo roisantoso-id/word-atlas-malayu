@@ -403,17 +403,23 @@ code {
   letter-spacing: 0.02em;
 }
 .lv-A1,
-.lv-A2 {
+.lv-A2,
+.lv-T1,
+.lv-T2 {
   --lv: var(--sage);
   --lv-soft: var(--sage-soft);
 }
 .lv-B1,
-.lv-B2 {
+.lv-B2,
+.lv-T3,
+.lv-T4 {
   --lv: var(--sky);
   --lv-soft: var(--sky-soft);
 }
 .lv-C1,
-.lv-C2 {
+.lv-C2,
+.lv-T5,
+.lv-T6 {
   --lv: var(--terra);
   --lv-soft: var(--terra-soft);
 }
@@ -887,10 +893,12 @@ code {
 .plate-word {
   position: relative;
   font: italic 500 1px/1.05 var(--serif);
-  font-size: clamp(14px, calc(150cqw / var(--len)), 22cqw);
+  /* Malay words run long (penggunaan, perkhidmatan): size to fit, never split a word */
+  font-size: clamp(8px, calc(125cqw / var(--len)), 22cqw);
   font-variation-settings: "opsz" 72;
   text-align: center;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
+  word-break: keep-all;
   letter-spacing: -0.01em;
 }
 .plate-rule {

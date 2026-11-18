@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useAtlas } from "../atlas/context";
 import type { WordRef } from "../atlas/types";
 import { openWord } from "../lib/router";
-import { cue, playFile } from "../lib/sound";
+import { cue } from "../lib/sound";
 import { isMastered } from "../store/srs";
 import { store, useStore } from "../store/store";
 import { Illustration } from "../ui/Illustration";
@@ -138,7 +138,7 @@ export function Galaxy({
         if (sfx && k < 12) void cue("ignite");
       }, 1400 + k * 180),
     );
-    const voice = window.setTimeout(() => sfx && void playFile("voice-galaxy-lit.mp3", 0.9), 1600 + ids.length * 180);
+    const voice = window.setTimeout(() => sfx && void 0 /* original voice line is English/IELTS */, 1600 + ids.length * 180);
     return () => {
       timers.forEach(clearTimeout);
       clearTimeout(voice);
@@ -163,7 +163,7 @@ export function Galaxy({
     } catch {
       return;
     }
-    const t = window.setTimeout(() => store.get().settings.sfx && void playFile("voice-galaxy-hello.mp3", 0.9), 900);
+    const t = window.setTimeout(() => void 0 /* original voice line is English/IELTS */, 900);
     return () => clearTimeout(t);
   }, [mode]);
 
@@ -321,7 +321,7 @@ export function Galaxy({
         >
           <Illustration src={atlas.img(hover.ref, "thumb")} word={hover.ref.word} topic={hover.ref.topic} />
           <span>
-            <b lang="en">{hover.ref.word}</b>
+            <b lang="ms">{hover.ref.word}</b>
             <small>{hover.ref.zh}</small>
           </span>
         </button>

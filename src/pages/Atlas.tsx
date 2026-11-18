@@ -101,10 +101,10 @@ export function AtlasPage({
           <h1 className="display">
             每个词，
             <br className="br-sm" />
-            都有一幅画。
+            都能听见。
           </h1>
           <p className="lede">
-            {atlas.examples.toLocaleString()} 条原创例句 · 英美发音 · 按难度和 {atlas.topics.length} 个雅思话题整理
+            {atlas.examples.toLocaleString()} 条例句 · 马来语真人发音 · 按词频和 {atlas.topics.length} 类词性整理
           </p>
         </div>
         <label className="search">
@@ -136,7 +136,7 @@ export function AtlasPage({
                 className={`chip-btn ${!level ? "is-on" : ""}`}
                 onClick={() => setFilter({ level: undefined })}
               >
-                所有难度
+                所有词频段
               </button>
               {atlas.cefr.map((l) => (
                 <button
@@ -155,7 +155,7 @@ export function AtlasPage({
                 className={`chip-btn ${!topic ? "is-on" : ""}`}
                 onClick={() => setFilter({ topic: undefined })}
               >
-                所有主题
+                所有词性
               </button>
               {atlas.topics.map(([k, name]) => (
                 <button
@@ -340,7 +340,7 @@ function VirtualGrid({
               № {String(w.order + 1).padStart(4, "0")}
             </span>
             <span className="tile-text">
-              <span className="tile-word" lang="en">
+              <span className="tile-word" lang="ms">
                 {w.word}
               </span>
               <span className={`tile-lv lv-${atlas.cefr[w.cefr]}`}>
@@ -390,7 +390,7 @@ function VirtualList({
               topic={w.topic}
               className="row-art"
             />
-            <span className="row-word" lang="en">
+            <span className="row-word" lang="ms">
               {w.word}
             </span>
             <span className="row-ipa ipa">{w.ipa}</span>

@@ -11,12 +11,12 @@ export function About() {
       <header className="about-hero">
         <img src={`${BASE}brand/og.webp`} alt="" />
         <div>
-          <p className="eyebrow">关于词光</p>
-          <h1 className="display">一词一画，点亮雅思。</h1>
+          <p className="eyebrow">关于 JomBelajar</p>
+          <h1 className="display">一词一声，学会马来语。</h1>
           <p className="lede">
-            词光把雅思阅读 8000 词整理成 {atlas.count.toLocaleString()} 个词条。每个词一幅原创插画，一句日常例句，一句雅思例句，配英美发音、常用搭配和易混提示。学会一个，就在你的星图上点亮一颗星。
+            JomBelajar 把马来语最常用的 {atlas.count.toLocaleString()} 个词按出现频率排好，每个词配马来语真人发音、中文释义和例句。学会一个，就在你的星图上点亮一颗星。
           </p>
-          <p className="lede">它免费、开源、无需注册。代码用 MIT，词库用 CC BY 4.0，谁都可以拿去用。</p>
+          <p className="lede">它免费、无需注册，进度只存在你自己的设备上。</p>
           <div className="about-actions">
             <a className="btn btn-primary" href={REPO_URL} target="_blank" rel="noreferrer">
               <Github size={18} /> 在 GitHub 上查看
@@ -33,10 +33,10 @@ export function About() {
           <h3 className="eyebrow">为什么记得住</h3>
           <ul className="feature-list">
             <li>
-              <b>先看见。</b>每个词都有一幅画，画的就是第一句例句里发生的事。
+              <b>先听见。</b>每个词都有马来语真人录音，先听再记。
             </li>
             <li>
-              <b>再想起。</b>选义、看图补句、听音辨词、拼写，从认得走到会写。
+              <b>再想起。</b>选义、补句、听音辨词、拼写，从认得走到会写。马来语拼写和读音一一对应，听会了就能写出来。
             </li>
             <li>
               <b>刚好在快忘时重逢。</b>FSRS 是新版 Anki 用的开源记忆算法，只在你快要遗忘时安排复习。
@@ -90,15 +90,21 @@ export function About() {
         <section className="panel">
           <h3 className="eyebrow">内容从哪里来</h3>
           <p className="muted">
-            释义、例句、搭配和提示由大语言模型按统一的词典规范重新撰写；插画由图像模型按统一画风逐词绘制；发音和朗读由 ElevenLabs 合成（英音 Alice，美音 Sarah）。所有内容都经过结构和一致性的自动校验，但没有逐条人工审校。看到错的地方，欢迎在 GitHub 提 Issue，或者直接改数据提 PR。
+            词表按马来语语料里的出现频率排序。中文释义和例句由马来语专业团队整理审核，还没审完的词暂时不上架。看到错的地方，欢迎在 GitHub 提 Issue。
           </p>
-          <p className="muted">词光不是官方雅思词表，也不承诺提分。它只想把背单词这件事，做得好看一点、扎实一点。</p>
+          <p className="muted">
+            界面和学习流程基于开源项目{" "}
+            <a className="link" href="https://github.com/designfuchen/word-atlas" target="_blank" rel="noreferrer">
+              词光 Word Atlas
+            </a>
+            （MIT 许可）改编，感谢原作者。
+          </p>
         </section>
 
         <section className="panel">
           <h3 className="eyebrow">给开发者</h3>
           <p className="muted">
-            <code>data/word-atlas.json</code> 和 <code>.csv</code> 是完整词库；<code>public/atlas</code> 里是网页用的分块数据、插画和音频。拿去做 Anki 牌组、背词小程序、浏览器插件，或者 AI 应用的评测集，署名即可。
+            <code>data/malay-5000.json</code> 和 <code>.csv</code> 是完整词表（含发音地址）；<code>public/atlas</code> 里是网页用的分块数据。<code>scripts/malay/build_malay_atlas.py</code> 从 JomBelajar 词库重新生成。
           </p>
           <a className="link" href={`${REPO_URL}#readme`} target="_blank" rel="noreferrer">
             阅读文档 <ArrowUpRight size={14} />

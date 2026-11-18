@@ -219,7 +219,7 @@ function TypingRound({ mode, entries, onExit, onAgain }: { mode: Mode; entries: 
             {e.ex[0].zh}
           </p>
         )}
-        <p className={`typing-text ${mode === "word" ? "is-word" : ""} ${mode === "dictation" ? "is-hidden" : ""}`} lang="en" aria-hidden="true">
+        <p className={`typing-text ${mode === "word" ? "is-word" : ""} ${mode === "dictation" ? "is-hidden" : ""}`} lang="ms" aria-hidden="true">
           {chars.map((ch, k) => {
             const t = typed[k];
             const cls = t === undefined ? (k === typed.length ? "is-caret" : "") : same(t, ch) ? "is-ok" : "is-bad";

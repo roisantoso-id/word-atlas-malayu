@@ -11,6 +11,8 @@ interface IndexFile {
   examples: number;
   illustrated: number;
   chunk: number;
+  /** Absolute folder for word audio (<id>.mp3); one voice, served for both accent slots. */
+  audioBase?: string;
   topics: [string, string][];
   cefr: string[];
   words: IndexRow[];
@@ -81,7 +83,9 @@ export async function loadOpenAtlas(): Promise<Atlas> {
     audio(ref, kind) {
       const m = "media" in ref && typeof ref.media === "number" ? ref.media : (ref as Entry).m;
       const bit = MEDIA[kind];
-      return m & bit ? url(`audio/${kind}/${ref.id}.mp3`) : null;
+      if (!(m & bit)) return null;
+      if (idx.audioBase) return kind === "uk" || kind === "us" ? `${idx.audioBase}${ref.id}.mp3` : null;
+      return url(`audio/${kind}/${ref.id}.mp3`);
     },
   };
 }

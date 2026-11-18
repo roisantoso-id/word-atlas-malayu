@@ -8,14 +8,14 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const pub = path.join(root, "public/atlas");
 const index = JSON.parse(fs.readFileSync(path.join(pub, "index.json"), "utf8"));
 const errors = [];
-const warn = { headwordNotInExample: 0, missingIpa: 0, oneExample: 0 };
+const warn = { headwordNotInExample: 0, missingIpa: 0, oneExample: 0, noExample: 0 };
 const fail = (msg) => errors.length < 50 && errors.push(msg);
 
 if (index.words.length !== index.count) fail(`count ${index.count} != rows ${index.words.length}`);
 const ids = new Set();
 index.words.forEach((r, i) => {
   const [id, word, zh, , cefr, topic, media] = r;
-  if (!/^[a-z0-9-]{1,64}$/.test(id) || ids.has(id)) fail(`bad or duplicate id at ${i}: ${id}`);
+  if (!/^[a-z0-9_-]{1,64}$/.test(id) || ids.has(id)) fail(`bad or duplicate id at ${i}: ${id}`);
   ids.add(id);
   if (!word || !zh) fail(`empty word or meaning: ${id}`);
   if (!(cefr >= 0 && cefr < index.cefr.length)) fail(`bad level: ${id}`);
@@ -28,7 +28,11 @@ index.words.forEach((r, i) => {
     [8, `audio/ex/${id}.mp3`],
     [16, `audio/ex2/${id}.mp3`],
   ];
-  for (const [bit, file] of need) if (media & bit && !fs.existsSync(path.join(pub, file))) fail(`missing ${file}`);
+  // Malay edition: word audio is remote (index.audioBase), so only local files are checked.
+  for (const [bit, file] of need) {
+    if (index.audioBase && (bit === 2 || bit === 4)) continue;
+    if (media & bit && !fs.existsSync(path.join(pub, file))) fail(`missing ${file}`);
+  }
 });
 
 let entries = 0;
@@ -40,9 +44,10 @@ for (let n = 0; n * index.chunk < index.count; n++) {
     if (!row || row[0] !== e.id) return fail(`chunk ${n} out of order at ${e.id}`);
     entries++;
     if (!Array.isArray(e.senses) || !e.senses.length || e.senses.some((s) => !s.zh)) fail(`no senses: ${e.id}`);
-    if (!Array.isArray(e.ex) || !e.ex.length || e.ex.some((x) => !x.en || !x.zh)) fail(`bad examples: ${e.id}`);
+    if (!Array.isArray(e.ex) || e.ex.some((x) => !x.en || !x.zh)) fail(`bad examples: ${e.id}`);
+    if (!e.ex.length) warn.noExample++;
     examples += e.ex.length;
-    if (e.ex.length < 2) warn.oneExample++;
+    if (e.ex.length === 1) warn.oneExample++;
     if (!e.uk && !e.us) warn.missingIpa++;
     const stem = e.w.toLowerCase().split(" ")[0].replace(/(e|y)$/, "").slice(0, 5);
     if (e.ex[0] && !e.ex[0].en.toLowerCase().includes(stem)) warn.headwordNotInExample++;

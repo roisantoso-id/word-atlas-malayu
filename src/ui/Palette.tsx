@@ -87,7 +87,7 @@ export function Palette({ open, onClose }: { open: boolean; onClose: () => void 
               onClick={() => pick(w)}
             >
               <Illustration src={atlas.img(w, "thumb")} word={w.word} topic={w.topic} className="palette-thumb" />
-              <span className="palette-word" lang="en">
+              <span className="palette-word" lang="ms">
                 {w.word}
               </span>
               <span className="palette-zh">{w.zh}</span>

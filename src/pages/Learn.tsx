@@ -186,7 +186,7 @@ function Quiz({ step, session }: { step: Step & { kind: QuizKind }; session: Act
       <section className="prompt">
         {step.kind === "meaning" && (
           <div className="prompt-word">
-            <h2 className="headword" lang="en">
+            <h2 className="headword" lang="ms">
               {entry.w}
             </h2>
             <Speak url={atlas.audio(entry, settings.accent)} text={entry.w} accent={settings.accent} label={<span className="ipa">{settings.accent === "us" ? entry.us || entry.uk : entry.uk || entry.us}</span>} />
@@ -195,7 +195,7 @@ function Quiz({ step, session }: { step: Step & { kind: QuizKind }; session: Act
         {step.kind === "picture" && (
           <div className="prompt-picture">
             <Illustration src={atlas.img(entry)} word={entry.w} topic={ref.topic} eager />
-            <p className="cloze" lang="en">
+            <p className="cloze" lang="ms">
               {sentence ? (
                 <>
                   {sentence.before}
@@ -263,7 +263,7 @@ function SpellPrompt({ entry, refw, hints }: { entry: Entry; refw: WordRef; hint
           <span className="pos">{entry.senses[0].pos}</span> {entry.senses[0].zh}
         </p>
         {sentence && (
-          <p className="cloze cloze-sm" lang="en">
+          <p className="cloze cloze-sm" lang="ms">
             {sentence.before}
             <span className="blank">　　　</span>
             {sentence.after}
@@ -343,7 +343,7 @@ function Feedback({ entry, refw, correct, onNext }: { entry: Entry; refw: WordRe
         <div className="feedback-text">
           <p className="feedback-verdict">{correct ? "答对了" : "没关系，记住它"}</p>
           <p className="feedback-word">
-            <b lang="en">{entry.w}</b>
+            <b lang="ms">{entry.w}</b>
             <span className="ipa">{entry.uk || entry.us}</span>
           </p>
           <p className="feedback-zh">
@@ -353,7 +353,7 @@ function Feedback({ entry, refw, correct, onNext }: { entry: Entry; refw: WordRe
               .join("　")}
           </p>
           {entry.ex[0] && (
-            <p className="feedback-ex" lang="en">
+            <p className="feedback-ex" lang="ms">
               <Highlight text={entry.ex[0].en} word={entry.w} />
             </p>
           )}
@@ -419,7 +419,7 @@ function Summary({ session }: { session: ActiveSession }) {
           {words.map((w) => (
             <li key={w.id} className={session.graded[w.id] === Rating.Again ? "is-wrong" : ""}>
               <Illustration src={atlas.img(w, "thumb")} word={w.word} topic={w.topic} />
-              <span lang="en">{w.word}</span>
+              <span lang="ms">{w.word}</span>
               <small>{w.zh}</small>
             </li>
           ))}
